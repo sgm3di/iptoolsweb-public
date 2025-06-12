@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CIDR Converter - IPToolsWeb.io</title>
+  <link rel="icon" type="image/png" href="../img/favicon.png" />
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+  <h1>🔄 CIDR ↔ Subnet Mask Converter</h1>
+
+  <div>
+    <label>CIDR (e.g., 24):</label><br>
+    <input type="number" id="cidr" placeholder="24" min="0" max="32"/>
+    <button onclick="cidrToMask()">Convert to Mask</button>
+    <div class="result" id="maskResult"></div>
+  </div>
+
+  <div style="margin-top:2rem;">
+    <label>Mask (e.g., 255.255.255.0):</label><br>
+    <input type="text" id="mask" placeholder="255.255.255.0" />
+    <button onclick="maskToCidr()">Convert to CIDR</button>
+    <div class="result" id="cidrResult"></div>
+  </div>
+
+  <div style="margin-top:2rem;">
+    <a href="index.html" style="color:#00FF00; text-decoration:none; font-size:1.5rem; border:1px dashed #00FF00; padding:0.3rem 0.6rem; font-family:monospace;">← Back</a>
+  </div>
+
+  <script>
+    function cidrToMask() {
+      let cidr = parseInt(document.getElementById('cidr').value);
+      if (cidr < 0 || cidr > 32 || isNaN(cidr)) {
+        document.getElementById('maskResult').textContent = 'Invalid CIDR';
+        return;
+      }
+      let mask = [];
+      for (let i = 0; i < 4; i++) {
+        if (cidr >= 8) {
+          mask.push(255);
+          cidr -= 8;
+        } else {
+          mask.push(256 - Math.pow(2, 8 - cidr));
+          cidr = 0;
+        }
+      }
+      document.getElementById('maskResult').textContent = mask.join('.');
+    }
+
+    function maskToCidr() {
+      const mask = document.getElementById('mask').value.split('.');
+      if (mask.length !== 4 || mask.some(oct => isNaN(oct) || oct < 0 || oct > 255)) {
+        document.getElementById('cidrResult').textContent = 'Invalid Mask';
+        return;
+      }
+      let cidr = 0;
+      for (let i = 0; i < 4; i++) {
+        let bin = parseInt(mask[i], 10).toString(2);
+        cidr += (bin.match(/1/g) || []).length;
+      }
+      document.getElementById('cidrResult').textContent = '/' + cidr;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>¿Cuál es mi IP? - IPToolsWeb.io</title>
+  <link rel="icon" type="image/png" href="../img/favicon.png" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>💻 ¿Cuál es mi IP pública?</h1>
+  <p>Tu dirección IP es:</p>
+  <div class="ip-box" id="ip">Cargando...</div>
+
+  <script>
+    fetch('https://api.ipify.org?format=json')
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('ip').textContent = data.ip;
+      })
+      .catch(error => {
+        document.getElementById('ip').textContent = "Error al obtener IP";
+        console.error("Error:", error);
+      });
+  </script>
+
+  <div style="margin-top:2rem;">
+    <a href="index.html" style="color:#00FF00; text-decoration:none; font-size:1.5rem; border:1px dashed #00FF00; padding:0.3rem 0.6rem; font-family:monospace;">← Volver</a>
+  </div>
+</body>
+</html>

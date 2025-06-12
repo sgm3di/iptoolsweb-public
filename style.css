@@ -1,0 +1,42 @@
+body {
+  background-color: black;
+  color: #00FF00;
+  font-family: 'Courier New', Courier, monospace;
+  padding: 2rem;
+  margin: 0;
+}
+h1 {
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.tool {
+  margin: 1rem 0;
+}
+a {
+  color: #00FF00;
+  text-decoration: underline;
+}
+input, button, select {
+  background-color: #111;
+  border: 1px solid #00FF00;
+  color: #00FF00;
+  font-family: monospace;
+  padding: 0.5rem;
+  margin-top: 1rem;
+}
+pre, .output, .ip-box {
+  background-color: #111;
+  border: 1px dashed #00FF00;
+  padding: 1rem;
+  margin-top: 1rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  display: inline-block;
+  font-size: 1.2rem;
+}
+@media (max-width: 600px) {
+  body { padding: 1rem; font-size: 90%; }
+  h1 { font-size: 1.4rem; }
+  .ip-box, .output, pre { width: 100%; font-size: 1rem; }
+  input, button { width: 100%; box-sizing: border-box; }
+}

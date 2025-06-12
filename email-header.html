@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Analizador de Cabeceras de Email - IPToolsWeb.io</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="img/favicon.png" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>✉️ Analizador de Cabeceras de Email</h1>
+
+  <label>Pega aquí la cabecera completa del correo:</label><br>
+  <textarea id="headerInput" rows="12" style="width:100%; font-family:monospace;"></textarea><br>
+  <button onclick="analizar()">Analizar</button>
+
+  <h2>🧾 Resultados</h2>
+  <pre id="resultado">Esperando datos...</pre>
+
+  <div style="margin-top:2rem;">
+    <a href="index.html" style="color:#00FF00; text-decoration:none; font-size:1.5rem;
+    border:1px dashed #00FF00; padding:0.3rem 0.6rem; font-family:monospace;">← Volver</a>
+  </div>
+
+  <script>
+    function analizar() {
+      const entrada = document.getElementById('headerInput').value;
+      const resultado = document.getElementById('resultado');
+      const lineas = entrada.split(/\r?\n/);
+      let datos = {};
+
+      lineas.forEach(l => {
+        const match = l.match(/^([\w\-]+):\s?(.*)/);
+        if (match) {
+          const clave = match[1];
+          const valor = match[2];
+          if (!datos[clave]) datos[clave] = [];
+          datos[clave].push(valor);
+        }
+      });
+
+      let salida = '';
+      for (const campo in datos) {
+        salida += `🔹 ${campo}:
+`;
+        datos[campo].forEach(v => salida += `    ${v}
+`);
+      }
+
+      resultado.textContent = salida || "No se detectaron cabeceras válidas.";
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Conversor CIDR - IPToolsWeb.io</title>
+  <link rel="icon" type="image/png" href="../img/favicon.png" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>🔄 Conversor CIDR ↔ Máscara</h1>
+
+  <div>
+    <label>CIDR (ej: 24):</label><br>
+    <input type="number" id="cidr" placeholder="24" min="0" max="32"/>
+    <button onclick="cidrAMascara()">Convertir a Máscara</button>
+    <div class="result" id="resultadoMascara"></div>
+  </div>
+
+  <div style="margin-top:2rem;">
+    <label>Máscara (ej: 255.255.255.0):</label><br>
+    <input type="text" id="mascara" placeholder="255.255.255.0" />
+    <button onclick="mascaraACidr()">Convertir a CIDR</button>
+    <div class="result" id="resultadoCidr"></div>
+  </div>
+
+  <div style="margin-top:2rem;">
+    <a href="index.html" style="color:#00FF00; text-decoration:none; font-size:1.5rem; border:1px dashed #00FF00; padding:0.3rem 0.6rem; font-family:monospace;">← Volver</a>
+  </div>
+
+  <script>
+    function cidrAMascara() {
+      let cidr = parseInt(document.getElementById('cidr').value);
+      if (cidr < 0 || cidr > 32 || isNaN(cidr)) {
+        document.getElementById('resultadoMascara').textContent = 'CIDR no válido';
+        return;
+      }
+      let mascara = [];
+      for (let i = 0; i < 4; i++) {
+        if (cidr >= 8) {
+          mascara.push(255);
+          cidr -= 8;
+        } else {
+          mascara.push(256 - Math.pow(2, 8 - cidr));
+          cidr = 0;
+        }
+      }
+      document.getElementById('resultadoMascara').textContent = mascara.join('.');
+    }
+
+    function mascaraACidr() {
+      const mascara = document.getElementById('mascara').value.split('.');
+      if (mascara.length !== 4 || mascara.some(oct => isNaN(oct) || oct < 0 || oct > 255)) {
+        document.getElementById('resultadoCidr').textContent = 'Máscara no válida';
+        return;
+      }
+      let cidr = 0;
+      for (let i = 0; i < 4; i++) {
+        let bin = parseInt(mascara[i], 10).toString(2);
+        cidr += (bin.match(/1/g) || []).length;
+      }
+      document.getElementById('resultadoCidr').textContent = '/' + cidr;
+    }
+  </script>
+</body>
+</html>

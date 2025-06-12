@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ping desde Internet - IPToolsWeb.io</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="img/favicon.png" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>📡 Ping desde Internet</h1>
+
+  <label>Host o dominio:</label><br>
+  <input type="text" id="host" placeholder="ej: google.com" />
+  <button onclick="ping()">Hacer Ping</button>
+
+  <div style="margin-top:2rem;">
+    <pre id="resultado">Esperando consulta...</pre>
+  </div>
+
+  <div style="margin-top:2rem;">
+    <a href="index.html" style="color:#00FF00; text-decoration:none; font-size:1.5rem;
+    border:1px dashed #00FF00; padding:0.3rem 0.6rem; font-family:monospace;">← Volver</a>
+  </div>
+
+  <script>
+    async function ping() {
+      const host = document.getElementById('host').value;
+      const resultado = document.getElementById('resultado');
+
+      if (!host) {
+        resultado.textContent = "Por favor, introduce un host.";
+        return;
+      }
+
+      resultado.textContent = "Consultando...";
+
+      try {
+        const response = await fetch(`https://api.iptoolsweb.io/api/ping?host=${encodeURIComponent(host)}`);
+        const data = await response.json();
+
+        if (data.output) {
+          resultado.textContent = data.output;
+        } else if (data.error) {
+          resultado.textContent = "❌ Error: " + data.error;
+        } else {
+          resultado.textContent = "⚠️ Respuesta inesperada.";
+        }
+      } catch (error) {
+        resultado.textContent = "❌ Error al consultar el servidor: " + error.message;
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>IPToolsWeb.io - Herramientas IP retro</title>
+  <link rel="icon" type="image/png" href="img/favicon.png" />
+  <link rel="stylesheet" href="style.css" />
+  <meta name="description" content="IPToolsWeb.io – Herramientas IP y de red para técnicos en formato retro. Consulta tu IP, escanea puertos, convierte CIDR y más.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: #000;
+      color: #00FF00;
+      font-family: monospace;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 2rem;
+    }
+    .blink {
+      animation: blink 1s step-start infinite;
+      color: #00FF00;
+      text-align: center;
+    }
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+    .tool {
+      margin-bottom: 0.5rem;
+    }
+    footer {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      text-align: center;
+      color: #00FF00;
+    }
+    footer a {
+      color: #00FF00;
+      text-decoration: underline;
+      margin: 0 1rem;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div>
+    <div style="position:absolute; top:1rem; right:2rem; display:flex; align-items:center; gap:1rem;">
+      <a href="index.html"><img src="es_flag.png" alt="Español" style="height:32px;"></a>
+      <a href="en/index.html"><img src="en_flag.png" alt="English" style="height:32px;"></a>
+      <select onchange="if(this.value) window.location.href=this.value" style="background:#000; color:#00FF00; border:1px solid #00FF00; font-family:monospace; height:32px;">
+        <option selected disabled>≡ Menú</option>
+        <option value="index.html">🏠 Inicio</option>
+        <option value="noticias.html">📰 Noticias</option>
+        <option value="blog.html">🧠 Trucos & Artículos</option>
+      </select>
+    </div>
+
+    <h1>💻 IPToolsWeb.io</h1>
+    <p>Herramientas IP y de red para técnicos reales. Modo retro activado.</p>
+
+    <div class="tool">➤ <a href="ip.html">¿Cuál es mi IP?</a> 🌐</div>
+    <div class="tool">➤ <a href="cidr.html">Conversor CIDR</a> 🧮</div>
+    <div class="tool">➤ <a href="whois.html">Whois de dominio</a> 🕵️</div>
+    <div class="tool">➤ <a href="puertos.html">Escáner de puertos</a> 🔍</div>
+    <div class="tool">➤ <a href="password.html">Generador de contraseñas</a> 🔐</div>
+    <div class="tool">➤ <a href="dns.html">DNS Checker</a> 📡</div>
+    <div class="tool">➤ <a href="email-header.html">Analizador de cabeceras</a> ✉️</div>
+    <div class="tool">➤ <a href="ping.html">Ping desde Internet</a> 📶</div>
+  </div>
+
+  <div>
+    <div class="blink">🖱️ Presiona ESC para volver. CTRL+C para salir. (mentira, pero queda bien).</div>
+    <hr />
+    <footer>
+      <a href="politica-cookies.html">Cookies</a>
+      <a href="politica-privacidad.html">Privacidad</a>
+      <a href="terminos-condiciones.html">Términos</a>
+    </footer>
+  </div>
+</div>
+</body>
+</html>

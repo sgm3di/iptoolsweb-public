@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Email Header Analyzer - IPToolsWeb.io</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="../img/favicon.png" />
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+  <h1>✉️ Email Header Analyzer</h1>
+
+  <label>Paste the full email header here:</label><br>
+  <textarea id="headerInput" rows="12" style="width:100%; font-family:monospace;"></textarea><br>
+  <button onclick="analyze()">Analyze</button>
+
+  <h2>🧾 Results</h2>
+  <pre id="result">Waiting for input...</pre>
+
+  <div style="margin-top:2rem;">
+    <a href="index.html" style="color:#00FF00; text-decoration:none; font-size:1.5rem;
+    border:1px dashed #00FF00; padding:0.3rem 0.6rem; font-family:monospace;">← Back</a>
+  </div>
+
+  <script>
+    function analyze() {
+      const input = document.getElementById('headerInput').value;
+      const result = document.getElementById('result');
+      const lines = input.split(/\r?\n/);
+      let fields = {};
+
+      lines.forEach(l => {
+        const match = l.match(/^([\w\-]+):\s?(.*)/);
+        if (match) {
+          const key = match[1];
+          const value = match[2];
+          if (!fields[key]) fields[key] = [];
+          fields[key].push(value);
+        }
+      });
+
+      let output = '';
+      for (const field in fields) {
+        output += `🔹 ${field}:
+`;
+        fields[field].forEach(v => output += `    ${v}
+`);
+      }
+
+      result.textContent = output || "No valid headers detected.";
+    }
+  </script>
+</body>
+</html>

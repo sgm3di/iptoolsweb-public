@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Escáner de Puertos - IPToolsWeb.io</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="img/favicon.png" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>🔍 Escáner de Puertos</h1>
+
+  <p>Introduce un host o IP:</p>
+  <input type="text" id="host" placeholder="ej: scanme.nmap.org" />
+
+  <p>Introduce puertos (opcional, separados por coma):</p>
+  <input type="text" id="ports" placeholder="ej: 22,80,443 (máx 20)" />
+
+  <button onclick="scan()">Escanear</button>
+
+  <div style="margin-top:2rem;">
+    <pre id="resultado">Esperando resultado...</pre>
+  </div>
+
+  <div style="margin-top:2rem;">
+    <a href="index.html" style="color:#00FF00; text-decoration:none; font-size:1.5rem;
+    border:1px dashed #00FF00; padding:0.3rem 0.6rem; font-family:monospace;">← Volver</a>
+  </div>
+
+  <script>
+    async function scan() {
+      const host = document.getElementById('host').value;
+      const ports = document.getElementById('ports').value;
+      const resultado = document.getElementById('resultado');
+
+      if (!host) {
+        resultado.textContent = "Por favor, introduce un host.";
+        return;
+      }
+
+      resultado.textContent = "Escaneando...";
+
+      try {
+        const url = `https://api.iptoolsweb.io/api/scan?host=${encodeURIComponent(host)}${ports ? '&ports=' + encodeURIComponent(ports) : ''}`;
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (data.results) {
+          let output = `🔎 Resultado para ${data.host}:
+
+`;
+          for (const [port, status] of Object.entries(data.results)) {
+            output += `Puerto ${port}: ${status === 'open' ? '🟢 Abierto' : '🔴 Cerrado'}
+`;
+          }
+          resultado.textContent = output;
+        } else if (data.error) {
+          resultado.textContent = "❌ Error: " + data.error;
+        } else {
+          resultado.textContent = "⚠️ Respuesta inesperada.";
+        }
+      } catch (err) {
+        resultado.textContent = "❌ Error al conectar con el servidor: " + err.message;
+      }
+    }
+  </script>
+</body>
+</html>
