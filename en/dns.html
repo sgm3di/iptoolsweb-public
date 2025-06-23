@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DNS Checker - iptoolsweb.io</title>
+  <meta name="description" content="Check DNS records from multiple resolvers like Google, Cloudflare and OpenDNS.">
+  <link rel="icon" type="image/png" href="../img/favicon.png">
+  <link rel="stylesheet" href="../style.css">
+  <meta property="og:title" content="DNS Checker">
+  <meta property="og:description" content="Query DNS records from multiple resolvers.">
+  <meta property="og:image" content="../img/dns-checker.png">
+  <link rel="canonical" href="https://iptoolsweb.io/en/dns.html">
+  <link rel="alternate" hreflang="es" href="https://iptoolsweb.io/dns.html">
+</head>
+<body>
+  <h1>🌐 DNS CHECKER FROM MULTIPLE RESOLVERS</h1>
+
+  <label>Domain:</label><br>
+  <input id="domain" type="text" value="google.com"><br>
+
+  <label>Record type:</label><br>
+  <select id="type">
+    <option value="A">A</option>
+    <option value="MX">MX</option>
+    <option value="CNAME">CNAME</option>
+    <option value="TXT">TXT</option>
+  </select><br><br>
+
+  <button onclick="checkDNS()">Check</button>
+
+  <pre id="result">Waiting for query...</pre>
+  <br><a href="/en/index.html">← Back</a>
+
+  <script>
+    function checkDNS() {
+      const domain = document.getElementById("domain").value;
+      const type = document.getElementById("type").value;
+      const resultBox = document.getElementById("result");
+
+      resultBox.textContent = "Checking...";
+
+      fetch(`https://api.iptoolsweb.io/api/dns?domain=${domain}&type=${type}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.error) {
+            resultBox.textContent = "Error: " + data.error;
+          } else {
+            resultBox.textContent = JSON.stringify(data, null, 2);
+          }
+        })
+        .catch(err => {
+          resultBox.textContent = "Network error: " + err.message;
+        });
+    }
+  </script>
+</body>
+</html>

@@ -1,114 +1,56 @@
-<!-- dns.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DNS Checker - IPToolsWeb.io</title>
-  <meta name="description" content="Comprueba registros DNS desde Google, Cloudflare, OpenDNS y más. Verifica la propagación DNS fácilmente.">
+  <title>Comprobador DNS - iptoolsweb.io</title>
+  <meta name="description" content="Comprueba registros DNS desde múltiples resolvers como Google, Cloudflare y OpenDNS.">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <link rel="stylesheet" href="/style.css">
+  <meta property="og:title" content="Comprobador DNS">
+  <meta property="og:description" content="Consulta registros DNS desde múltiples fuentes.">
+  <meta property="og:image" content="/img/dns-checker.png">
   <link rel="canonical" href="https://iptoolsweb.io/dns.html">
-  <meta property="og:title" content="DNS Checker - IPToolsWeb.io">
-  <meta property="og:description" content="Comprueba registros DNS desde Google, Cloudflare, OpenDNS y más. Verifica la propagación DNS fácilmente.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://iptoolsweb.io/dns.html">
-  <meta property="og:image" content="https://iptoolsweb.io/img/dns-cover.png">
-  <link rel="alternate" hreflang="es" href="https://iptoolsweb.io/dns.html">
   <link rel="alternate" hreflang="en" href="https://iptoolsweb.io/en/dns.html">
-  <link rel="icon" type="image/png" href="img/favicon.png">
-  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>🌐 Comprobador DNS desde múltiples resolvers</h1>
-  <label>Dominio:</label><br>
-  <input type="text" id="dominio" placeholder="ej: google.com"><br>
-  <label>Tipo de registro:</label><br>
-  <select id="tipo">
-    <option value="A">A</option>
-    <option value="AAAA">AAAA</option>
-    <option value="MX">MX</option>
-    <option value="CNAME">CNAME</option>
-    <option value="TXT">TXT</option>
-    <option value="NS">NS</option>
-  </select><br><br>
-  <button onclick="consultarDNS()">Consultar</button>
-  <pre id="resultado">Esperando consulta...</pre>
-  <div style="margin-top:2rem;">
-    <a href="index.html" class="retro-link">&larr; Volver</a>
-  </div>
-  <script>
-    async function consultarDNS() {
-      const dominio = document.getElementById('dominio').value;
-      const tipo = document.getElementById('tipo').value;
-      const resultado = document.getElementById('resultado');
-      resultado.textContent = "Consultando...";
-      try {
-        const res = await fetch(`/api/dns?domain=${dominio}&type=${tipo}`);
-        const data = await res.json();
-        if (data.error) return resultado.textContent = "Error: " + data.error;
-        resultado.textContent = data.results.map(r => {
-          return r.error ? `${r.resolver} (${r.ip}): ERROR\n${r.error}` : `${r.resolver} (${r.ip}):\n${r.records.join('\n')}`;
-        }).join('\n\n');
-      } catch (e) {
-        resultado.textContent = "Error en la consulta: " + e.message;
-      }
-    }
-  </script>
-</body>
-</html>
+  <h1>🌐 COMPROBADOR DNS DESDE MÚLTIPLES RESOLVERS</h1>
 
-<!-- en/dns.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DNS Checker - IPToolsWeb.io</title>
-  <meta name="description" content="Check DNS records from Google, Cloudflare, OpenDNS and more. Verify DNS propagation easily.">
-  <link rel="canonical" href="https://iptoolsweb.io/en/dns.html">
-  <meta property="og:title" content="DNS Checker - IPToolsWeb.io">
-  <meta property="og:description" content="Check DNS records from Google, Cloudflare, OpenDNS and more. Verify DNS propagation easily.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://iptoolsweb.io/en/dns.html">
-  <meta property="og:image" content="https://iptoolsweb.io/img/dns-cover.png">
-  <link rel="alternate" hreflang="es" href="https://iptoolsweb.io/dns.html">
-  <link rel="alternate" hreflang="en" href="https://iptoolsweb.io/en/dns.html">
-  <link rel="icon" type="image/png" href="../img/favicon.png">
-  <link rel="stylesheet" href="../style.css">
-</head>
-<body>
-  <h1>🌐 DNS Checker from multiple resolvers</h1>
-  <label>Domain:</label><br>
-  <input type="text" id="dominio" placeholder="e.g. google.com"><br>
-  <label>Record type:</label><br>
-  <select id="tipo">
+  <label>Dominio:</label><br>
+  <input id="domain" type="text" value="google.com"><br>
+
+  <label>Tipo de registro:</label><br>
+  <select id="type">
     <option value="A">A</option>
-    <option value="AAAA">AAAA</option>
     <option value="MX">MX</option>
     <option value="CNAME">CNAME</option>
     <option value="TXT">TXT</option>
-    <option value="NS">NS</option>
   </select><br><br>
-  <button onclick="consultarDNS()">Check</button>
-  <pre id="resultado">Waiting for query...</pre>
-  <div style="margin-top:2rem;">
-    <a href="index.html" class="retro-link">&larr; Back</a>
-  </div>
+
+  <button onclick="checkDNS()">Consultar</button>
+
+  <pre id="result">Esperando consulta...</pre>
+  <br><a href="/index.html">← Volver</a>
+
   <script>
-    async function consultarDNS() {
-      const dominio = document.getElementById('dominio').value;
-      const tipo = document.getElementById('tipo').value;
-      const resultado = document.getElementById('resultado');
-      resultado.textContent = "Checking...";
-      try {
-        const res = await fetch(`/api/dns?domain=${dominio}&type=${tipo}`);
-        const data = await res.json();
-        if (data.error) return resultado.textContent = "Error: " + data.error;
-        resultado.textContent = data.results.map(r => {
-          return r.error ? `${r.resolver} (${r.ip}): ERROR\n${r.error}` : `${r.resolver} (${r.ip}):\n${r.records.join('\n')}`;
-        }).join('\n\n');
-      } catch (e) {
-        resultado.textContent = "Request error: " + e.message;
-      }
+    function checkDNS() {
+      const domain = document.getElementById("domain").value;
+      const type = document.getElementById("type").value;
+      const resultBox = document.getElementById("result");
+
+      resultBox.textContent = "Consultando...";
+
+      fetch(`https://api.iptoolsweb.io/api/dns?domain=${domain}&type=${type}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.error) {
+            resultBox.textContent = "Error: " + data.error;
+          } else {
+            resultBox.textContent = JSON.stringify(data, null, 2);
+          }
+        })
+        .catch(err => {
+          resultBox.textContent = "Error de red: " + err.message;
+        });
     }
   </script>
 </body>
