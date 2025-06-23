@@ -1,3 +1,5 @@
 User-agent: *
+Disallow: /backend/
 Allow: /
+
 Sitemap: https://iptoolsweb.io/sitemap.xml

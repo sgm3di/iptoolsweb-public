@@ -1,2 +1,74 @@
-<?xml version='1.0' encoding='utf-8'?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>https://iptoolsweb.io/</loc><lastmod>2025-06-04</lastmod></url><url><loc>https://iptoolsweb.io/ip.html</loc><lastmod>2025-06-04</lastmod></url><url><loc>https://iptoolsweb.io/cidr.html</loc><lastmod>2025-06-04</lastmod></url><url><loc>https://iptoolsweb.io/puertos.html</loc><lastmod>2025-06-04</lastmod></url><url><loc>https://iptoolsweb.io/whois.html</loc><lastmod>2025-06-04</lastmod></url><url><loc>https://iptoolsweb.io/password.html</loc><lastmod>2025-06-04</lastmod></url><url><loc>https://iptoolsweb.io/email-header.html</loc><lastmod>2025-06-04</lastmod></url><url><loc>https://iptoolsweb.io/dns.html</loc><lastmod>2025-06-04</lastmod></url><url><loc>https://iptoolsweb.io/ping.html</loc><lastmod>2025-06-04</lastmod></url><url><loc>https://iptoolsweb.io/noticias.html</loc><lastmod>2025-06-04</lastmod></url><url><loc>https://iptoolsweb.io/blog.html</loc><lastmod>2025-06-04</lastmod></url><url><loc>https://iptoolsweb.io/politica-privacidad.html</loc><lastmod>2025-06-04</lastmod></url><url><loc>https://iptoolsweb.io/politica-cookies.html</loc><lastmod>2025-06-04</lastmod></url><url><loc>https://iptoolsweb.io/terminos-condiciones.html</loc><lastmod>2025-06-04</lastmod></url><url><loc>https://iptoolsweb.io/articulos/puertos-abiertos.html</loc><lastmod>2025-06-04</lastmod></url><url><loc>https://iptoolsweb.io/articulos/contraseñas-seguras.html</loc><lastmod>2025-06-04</lastmod></url><url><loc>https://iptoolsweb.io/articulos/herramientas-red.html</loc><lastmod>2025-06-04</lastmod></url><url><loc>https://iptoolsweb.io/articulos/herramientas-retro.html</loc><lastmod>2025-06-04</lastmod></url><url><loc>https://iptoolsweb.io/articulos/ip-publica.html</loc><lastmod>2025-06-04</lastmod></url><url><loc>https://iptoolsweb.io/noticias/ios26.html</loc><lastmod>2025-06-04</lastmod></url><url><loc>https://iptoolsweb.io/en/</loc><lastmod>2025-06-04</lastmod></url><url><loc>https://iptoolsweb.io/en/ip.html</loc><lastmod>2025-06-04</lastmod></url><url><loc>https://iptoolsweb.io/en/cidr.html</loc><lastmod>2025-06-04</lastmod></url><url><loc>https://iptoolsweb.io/en/puertos.html</loc><lastmod>2025-06-04</lastmod></url><url><loc>https://iptoolsweb.io/en/whois.html</loc><lastmod>2025-06-04</lastmod></url><url><loc>https://iptoolsweb.io/en/password.html</loc><lastmod>2025-06-04</lastmod></url><url><loc>https://iptoolsweb.io/en/email-header.html</loc><lastmod>2025-06-04</lastmod></url><url><loc>https://iptoolsweb.io/en/dns.html</loc><lastmod>2025-06-04</lastmod></url><url><loc>https://iptoolsweb.io/en/ping.html</loc><lastmod>2025-06-04</lastmod></url><url><loc>https://iptoolsweb.io/en/news.html</loc><lastmod>2025-06-04</lastmod></url><url><loc>https://iptoolsweb.io/en/blog.html</loc><lastmod>2025-06-04</lastmod></url><url><loc>https://iptoolsweb.io/en/privacy-policy.html</loc><lastmod>2025-06-04</lastmod></url><url><loc>https://iptoolsweb.io/en/cookies-policy.html</loc><lastmod>2025-06-04</lastmod></url><url><loc>https://iptoolsweb.io/en/terms-conditions.html</loc><lastmod>2025-06-04</lastmod></url><url><loc>https://iptoolsweb.io/en/articles/open-ports.html</loc><lastmod>2025-06-04</lastmod></url><url><loc>https://iptoolsweb.io/en/articles/secure-passwords.html</loc><lastmod>2025-06-04</lastmod></url><url><loc>https://iptoolsweb.io/en/articles/network-tools.html</loc><lastmod>2025-06-04</lastmod></url><url><loc>https://iptoolsweb.io/en/articles/retro-tools.html</loc><lastmod>2025-06-04</lastmod></url><url><loc>https://iptoolsweb.io/en/articles/what-is-my-ip.html</loc><lastmod>2025-06-04</lastmod></url><url><loc>https://iptoolsweb.io/en/news/ios26.html</loc><lastmod>2025-06-04</lastmod></url></urlset>
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- Página principal -->
+  <url>
+    <loc>https://iptoolsweb.io/index.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://iptoolsweb.io/en/index.html"/>
+  </url>
+
+  <!-- Herramientas -->
+  <url>
+    <loc>https://iptoolsweb.io/ip.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://iptoolsweb.io/en/ip.html"/>
+  </url>
+  <url>
+    <loc>https://iptoolsweb.io/ping.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://iptoolsweb.io/en/ping.html"/>
+  </url>
+  <url>
+    <loc>https://iptoolsweb.io/password.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://iptoolsweb.io/en/password.html"/>
+  </url>
+  <url>
+    <loc>https://iptoolsweb.io/puertos.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://iptoolsweb.io/en/puertos.html"/>
+  </url>
+  <url>
+    <loc>https://iptoolsweb.io/whois.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://iptoolsweb.io/en/whois.html"/>
+  </url>
+  <url>
+    <loc>https://iptoolsweb.io/email-header.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://iptoolsweb.io/en/email-header.html"/>
+  </url>
+  <url>
+    <loc>https://iptoolsweb.io/dns.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://iptoolsweb.io/en/dns.html"/>
+  </url>
+  <url>
+    <loc>https://iptoolsweb.io/cidr.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://iptoolsweb.io/en/cidr.html"/>
+  </url>
+
+  <!-- Blog y noticias -->
+  <url>
+    <loc>https://iptoolsweb.io/blog.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://iptoolsweb.io/en/blog.html"/>
+  </url>
+  <url>
+    <loc>https://iptoolsweb.io/noticias.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://iptoolsweb.io/en/news.html"/>
+  </url>
+
+  <!-- Páginas legales -->
+  <url>
+    <loc>https://iptoolsweb.io/politica-cookies.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://iptoolsweb.io/en/cookies-policy.html"/>
+  </url>
+  <url>
+    <loc>https://iptoolsweb.io/politica-privacidad.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://iptoolsweb.io/en/privacy-policy.html"/>
+  </url>
+  <url>
+    <loc>https://iptoolsweb.io/terminos-condiciones.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://iptoolsweb.io/en/terms-conditions.html"/>
+  </url>
+
+  <!-- Página de error personalizada -->
+  <url>
+    <loc>https://iptoolsweb.io/404.html</loc>
+  </url>
+
+</urlset>
