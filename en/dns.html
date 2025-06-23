@@ -2,55 +2,73 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>:: DNS CHECKER ::</title>
-  <meta name="description" content="Check DNS propagation for any domain across multiple global resolvers. Supports A, MX, TXT, CNAME, and more.">
+  <title>DNS Checker – iptoolsweb.io</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Check DNS records (A, MX, CNAME, TXT…) across multiple public resolvers like Google, Cloudflare, Quad9 and more.">
   <link rel="canonical" href="https://iptoolsweb.io/en/dns.html">
-  <meta property="og:title" content="DNS CHECKER :: iptoolsweb.io">
-  <meta property="og:description" content="Query DNS records from different resolvers worldwide. Useful for propagation and error checking.">
-  <meta property="og:image" content="../../img/dns-checker-cover.png">
-  <meta property="og:url" content="https://iptoolsweb.io/en/dns.html">
-  <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" type="image/png" href="../../img/favicon.png">
-  <link rel="stylesheet" href="../../style.css">
-  <link rel="alternate" hreflang="es" href="https://iptoolsweb.io/dns.html" />
+  <link rel="alternate" hreflang="es" href="https://iptoolsweb.io/dns.html">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  <h1>:: DNS CHECKER ::</h1>
-  <p>Enter a domain and the record type to query (A, MX, TXT, etc.).</p>
+  <h1>🌐 DNS CHECKER</h1>
+
+  <p>Enter a domain and the DNS record type you want to query.</p>
+
   <form id="dnsForm">
-    <input type="text" id="domain" placeholder="e.g. google.com" required>
+    <input id="domain" type="text" placeholder="e.g. google.com" required>
     <select id="type">
-      <option value="A">A</option>
-      <option value="AAAA">AAAA</option>
-      <option value="CNAME">CNAME</option>
-      <option value="MX">MX</option>
-      <option value="NS">NS</option>
-      <option value="TXT">TXT</option>
+      <option>A</option><option>AAAA</option><option>CNAME</option>
+      <option>MX</option><option>NS</option><option>TXT</option><option>SOA</option>
     </select>
     <button type="submit">Check</button>
   </form>
-  <div id="result"></div>
-  <p><a href="/en/index.html">Return to home</a></p>
-  <script>
-    document.getElementById('dnsForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const domain = document.getElementById('domain').value;
-      const type = document.getElementById('type').value;
-      const resultDiv = document.getElementById('result');
-      resultDiv.innerHTML = `<h2>Results for <span style="color:#00FF00">${domain}</span> (${type}) :</h2>`;
-      try {
-        const res = await fetch(`https://api.iptoolsweb.io/api/dns?domain=${domain}&type=${type}`);
-        const data = await res.json();
-        data.results.forEach(entry => {
-          const symbol = entry.answer ? '✅' : '❌';
-          const resolver = `<strong>${entry.resolver}</strong> (${entry.ip})`;
-          const response = entry.answer ? entry.answer.join('<br>') : `<em>Error</em><br>${entry.error || ''}`;
-          resultDiv.innerHTML += `<p>${symbol} ${resolver}<br><span style="margin-left:2em">${response}</span></p>`;
-        });
-      } catch (err) {
-        resultDiv.innerHTML += `<p>Error connecting to API</p>`;
-      }
+
+  <span id="loading" style="display:none;font-weight:bold;">Loading<span id="dots">.</span></span>
+  <pre id="results" style="white-space:pre-wrap;margin-top:1rem;"></pre>
+
+  <p><a href="/en/index.html">Back to home</a></p>
+
+<script>
+const form   = document.getElementById('dnsForm');
+const domain = document.getElementById('domain');
+const type   = document.getElementById('type');
+const loadEl = document.getElementById('loading');
+const dots   = document.getElementById('dots');
+const output = document.getElementById('results');
+let   timer;
+
+form.addEventListener('submit', async e => {
+  e.preventDefault();
+  const dom  = domain.value.trim();
+  const rec  = type.value;
+  if (!dom) return;
+
+  output.textContent = '';
+  loadEl.style.display = 'inline-block';
+  let cycle = 0;
+  timer = setInterval(()=>{ dots.textContent = '.'.repeat((cycle++%3)+1); },400);
+
+  try {
+    const r  = await fetch(`https://api.iptoolsweb.io/api/dns?domain=${encodeURIComponent(dom)}&type=${rec}`);
+    const js = await r.json();
+    if (!js.results) throw new Error('No data');
+    let txt = `Results for ${js.domain} (${js.type}):\n\n`;
+    js.results.forEach(v=>{
+      const mark = v.answer ? '✅' : '❌';
+      txt += `${mark} ${v.resolver} (${v.ip})\n`;
+      if (v.answer) v.answer.forEach(a=>txt+=a+'\n');
+      else          txt += 'Error\n' + (v.error||'') + '\n';
+      txt += '\n';
     });
-  </script>
+    output.textContent = txt;
+  } catch(err){
+    output.textContent = 'Error connecting to API';
+  } finally{
+    clearInterval(timer);
+    loadEl.style.display = 'none';
+  }
+});
+</script>
 </body>
 </html>
