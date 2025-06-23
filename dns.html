@@ -2,56 +2,55 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Comprobador DNS - iptoolsweb.io</title>
-  <meta name="description" content="Comprueba registros DNS desde múltiples resolvers como Google, Cloudflare y OpenDNS.">
+  <title>:: DNS CHECKER ::</title>
+  <meta name="description" content="Comprueba la propagación DNS de cualquier dominio con distintos resolvers globales. Compatible con registros A, MX, TXT, CNAME, y más.">
+  <link rel="canonical" href="https://iptoolsweb.io/dns.html">
+  <meta property="og:title" content="DNS CHECKER :: iptoolsweb.io">
+  <meta property="og:description" content="Consulta los registros DNS desde múltiples servidores del mundo. Ideal para comprobar propagación y errores.">
+  <meta property="og:image" content="/img/dns-checker-cover.png">
+  <meta property="og:url" content="https://iptoolsweb.io/dns.html">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/png" href="/img/favicon.png">
   <link rel="stylesheet" href="/style.css">
-  <meta property="og:title" content="Comprobador DNS">
-  <meta property="og:description" content="Consulta registros DNS desde múltiples fuentes.">
-  <meta property="og:image" content="/img/dns-checker.png">
-  <link rel="canonical" href="https://iptoolsweb.io/dns.html">
-  <link rel="alternate" hreflang="en" href="https://iptoolsweb.io/en/dns.html">
+  <link rel="alternate" hreflang="en" href="https://iptoolsweb.io/en/dns.html" />
 </head>
 <body>
-  <h1>🌐 COMPROBADOR DNS DESDE MÚLTIPLES RESOLVERS</h1>
-
-  <label>Dominio:</label><br>
-  <input id="domain" type="text" value="google.com"><br>
-
-  <label>Tipo de registro:</label><br>
-  <select id="type">
-    <option value="A">A</option>
-    <option value="MX">MX</option>
-    <option value="CNAME">CNAME</option>
-    <option value="TXT">TXT</option>
-  </select><br><br>
-
-  <button onclick="checkDNS()">Consultar</button>
-
-  <pre id="result">Esperando consulta...</pre>
-  <br><a href="/index.html">← Volver</a>
-
+  <h1>:: DNS CHECKER ::</h1>
+  <p>Introduce un dominio y el tipo de registro que deseas consultar (A, MX, TXT, etc.).</p>
+  <form id="dnsForm">
+    <input type="text" id="domain" placeholder="ej. google.com" required>
+    <select id="type">
+      <option value="A">A</option>
+      <option value="AAAA">AAAA</option>
+      <option value="CNAME">CNAME</option>
+      <option value="MX">MX</option>
+      <option value="NS">NS</option>
+      <option value="TXT">TXT</option>
+    </select>
+    <button type="submit">Comprobar</button>
+  </form>
+  <div id="result"></div>
+  <p><a href="/index.html">Volver al inicio</a></p>
   <script>
-    function checkDNS() {
-      const domain = document.getElementById("domain").value;
-      const type = document.getElementById("type").value;
-      const resultBox = document.getElementById("result");
-
-      resultBox.textContent = "Consultando...";
-
-      fetch(`https://api.iptoolsweb.io/api/dns?domain=${domain}&type=${type}`)
-        .then(res => res.json())
-        .then(data => {
-          if (data.error) {
-            resultBox.textContent = "Error: " + data.error;
-          } else {
-            resultBox.textContent = JSON.stringify(data, null, 2);
-          }
-        })
-        .catch(err => {
-          resultBox.textContent = "Error de red: " + err.message;
+    document.getElementById('dnsForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const domain = document.getElementById('domain').value;
+      const type = document.getElementById('type').value;
+      const resultDiv = document.getElementById('result');
+      resultDiv.innerHTML = `<h2>Resultados para <span style="color:#00FF00">${domain}</span> (${type}) :</h2>`;
+      try {
+        const res = await fetch(`https://api.iptoolsweb.io/api/dns?domain=${domain}&type=${type}`);
+        const data = await res.json();
+        data.results.forEach(entry => {
+          const symbol = entry.answer ? '✅' : '❌';
+          const resolver = `<strong>${entry.resolver}</strong> (${entry.ip})`;
+          const response = entry.answer ? entry.answer.join('<br>') : `<em>Error</em><br>${entry.error || ''}`;
+          resultDiv.innerHTML += `<p>${symbol} ${resolver}<br><span style="margin-left:2em">${response}</span></p>`;
         });
-    }
+      } catch (err) {
+        resultDiv.innerHTML += `<p>Error al conectar con la API</p>`;
+      }
+    });
   </script>
 </body>
 </html>

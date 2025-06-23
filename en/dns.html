@@ -2,56 +2,55 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>DNS Checker - iptoolsweb.io</title>
-  <meta name="description" content="Check DNS records from multiple resolvers like Google, Cloudflare and OpenDNS.">
-  <link rel="icon" type="image/png" href="../img/favicon.png">
-  <link rel="stylesheet" href="../style.css">
-  <meta property="og:title" content="DNS Checker">
-  <meta property="og:description" content="Query DNS records from multiple resolvers.">
-  <meta property="og:image" content="../img/dns-checker.png">
+  <title>:: DNS CHECKER ::</title>
+  <meta name="description" content="Check DNS propagation for any domain across multiple global resolvers. Supports A, MX, TXT, CNAME, and more.">
   <link rel="canonical" href="https://iptoolsweb.io/en/dns.html">
-  <link rel="alternate" hreflang="es" href="https://iptoolsweb.io/dns.html">
+  <meta property="og:title" content="DNS CHECKER :: iptoolsweb.io">
+  <meta property="og:description" content="Query DNS records from different resolvers worldwide. Useful for propagation and error checking.">
+  <meta property="og:image" content="../../img/dns-checker-cover.png">
+  <meta property="og:url" content="https://iptoolsweb.io/en/dns.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/png" href="../../img/favicon.png">
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="alternate" hreflang="es" href="https://iptoolsweb.io/dns.html" />
 </head>
 <body>
-  <h1>🌐 DNS CHECKER FROM MULTIPLE RESOLVERS</h1>
-
-  <label>Domain:</label><br>
-  <input id="domain" type="text" value="google.com"><br>
-
-  <label>Record type:</label><br>
-  <select id="type">
-    <option value="A">A</option>
-    <option value="MX">MX</option>
-    <option value="CNAME">CNAME</option>
-    <option value="TXT">TXT</option>
-  </select><br><br>
-
-  <button onclick="checkDNS()">Check</button>
-
-  <pre id="result">Waiting for query...</pre>
-  <br><a href="/en/index.html">← Back</a>
-
+  <h1>:: DNS CHECKER ::</h1>
+  <p>Enter a domain and the record type to query (A, MX, TXT, etc.).</p>
+  <form id="dnsForm">
+    <input type="text" id="domain" placeholder="e.g. google.com" required>
+    <select id="type">
+      <option value="A">A</option>
+      <option value="AAAA">AAAA</option>
+      <option value="CNAME">CNAME</option>
+      <option value="MX">MX</option>
+      <option value="NS">NS</option>
+      <option value="TXT">TXT</option>
+    </select>
+    <button type="submit">Check</button>
+  </form>
+  <div id="result"></div>
+  <p><a href="/en/index.html">Return to home</a></p>
   <script>
-    function checkDNS() {
-      const domain = document.getElementById("domain").value;
-      const type = document.getElementById("type").value;
-      const resultBox = document.getElementById("result");
-
-      resultBox.textContent = "Checking...";
-
-      fetch(`https://api.iptoolsweb.io/api/dns?domain=${domain}&type=${type}`)
-        .then(res => res.json())
-        .then(data => {
-          if (data.error) {
-            resultBox.textContent = "Error: " + data.error;
-          } else {
-            resultBox.textContent = JSON.stringify(data, null, 2);
-          }
-        })
-        .catch(err => {
-          resultBox.textContent = "Network error: " + err.message;
+    document.getElementById('dnsForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const domain = document.getElementById('domain').value;
+      const type = document.getElementById('type').value;
+      const resultDiv = document.getElementById('result');
+      resultDiv.innerHTML = `<h2>Results for <span style="color:#00FF00">${domain}</span> (${type}) :</h2>`;
+      try {
+        const res = await fetch(`https://api.iptoolsweb.io/api/dns?domain=${domain}&type=${type}`);
+        const data = await res.json();
+        data.results.forEach(entry => {
+          const symbol = entry.answer ? '✅' : '❌';
+          const resolver = `<strong>${entry.resolver}</strong> (${entry.ip})`;
+          const response = entry.answer ? entry.answer.join('<br>') : `<em>Error</em><br>${entry.error || ''}`;
+          resultDiv.innerHTML += `<p>${symbol} ${resolver}<br><span style="margin-left:2em">${response}</span></p>`;
         });
-    }
+      } catch (err) {
+        resultDiv.innerHTML += `<p>Error connecting to API</p>`;
+      }
+    });
   </script>
 </body>
 </html>
