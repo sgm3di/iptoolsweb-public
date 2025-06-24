@@ -1,74 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
-
-  <!-- Página principal -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Index -->
   <url>
-    <loc>https://iptoolsweb.io/index.html</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://iptoolsweb.io/en/index.html"/>
+    <loc>https://iptoolsweb.io/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://iptoolsweb.io/en/index.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
 
-  <!-- Herramientas -->
-  <url>
-    <loc>https://iptoolsweb.io/ip.html</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://iptoolsweb.io/en/ip.html"/>
-  </url>
-  <url>
-    <loc>https://iptoolsweb.io/ping.html</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://iptoolsweb.io/en/ping.html"/>
-  </url>
-  <url>
-    <loc>https://iptoolsweb.io/password.html</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://iptoolsweb.io/en/password.html"/>
-  </url>
-  <url>
-    <loc>https://iptoolsweb.io/puertos.html</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://iptoolsweb.io/en/puertos.html"/>
-  </url>
-  <url>
-    <loc>https://iptoolsweb.io/whois.html</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://iptoolsweb.io/en/whois.html"/>
-  </url>
-  <url>
-    <loc>https://iptoolsweb.io/email-header.html</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://iptoolsweb.io/en/email-header.html"/>
-  </url>
-  <url>
-    <loc>https://iptoolsweb.io/dns.html</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://iptoolsweb.io/en/dns.html"/>
-  </url>
-  <url>
-    <loc>https://iptoolsweb.io/cidr.html</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://iptoolsweb.io/en/cidr.html"/>
-  </url>
+  <!-- Herramientas principales ES -->
+  <url><loc>https://iptoolsweb.io/ip.html</loc></url>
+  <url><loc>https://iptoolsweb.io/whois.html</loc></url>
+  <url><loc>https://iptoolsweb.io/puertos.html</loc></url>
+  <url><loc>https://iptoolsweb.io/dns.html</loc></url>
+  <url><loc>https://iptoolsweb.io/ping.html</loc></url>
+  <url><loc>https://iptoolsweb.io/password.html</loc></url>
+  <url><loc>https://iptoolsweb.io/email-header.html</loc></url>
+  <url><loc>https://iptoolsweb.io/cidr.html</loc></url>
 
-  <!-- Blog y noticias -->
-  <url>
-    <loc>https://iptoolsweb.io/blog.html</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://iptoolsweb.io/en/blog.html"/>
-  </url>
-  <url>
-    <loc>https://iptoolsweb.io/noticias.html</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://iptoolsweb.io/en/news.html"/>
-  </url>
+  <!-- Herramientas principales EN -->
+  <url><loc>https://iptoolsweb.io/en/ip.html</loc></url>
+  <url><loc>https://iptoolsweb.io/en/whois.html</loc></url>
+  <url><loc>https://iptoolsweb.io/en/puertos.html</loc></url>
+  <url><loc>https://iptoolsweb.io/en/dns.html</loc></url>
+  <url><loc>https://iptoolsweb.io/en/ping.html</loc></url>
+  <url><loc>https://iptoolsweb.io/en/password.html</loc></url>
+  <url><loc>https://iptoolsweb.io/en/email-header.html</loc></url>
+  <url><loc>https://iptoolsweb.io/en/cidr.html</loc></url>
 
-  <!-- Páginas legales -->
-  <url>
-    <loc>https://iptoolsweb.io/politica-cookies.html</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://iptoolsweb.io/en/cookies-policy.html"/>
-  </url>
-  <url>
-    <loc>https://iptoolsweb.io/politica-privacidad.html</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://iptoolsweb.io/en/privacy-policy.html"/>
-  </url>
-  <url>
-    <loc>https://iptoolsweb.io/terminos-condiciones.html</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://iptoolsweb.io/en/terms-conditions.html"/>
-  </url>
+  <!-- Blog / Artículos -->
+  <url><loc>https://iptoolsweb.io/blog.html</loc></url>
+  <url><loc>https://iptoolsweb.io/en/blog.html</loc></url>
+  <!-- Ejemplo artículo -->
+  <url><loc>https://iptoolsweb.io/articulos/puertos-abiertos.html</loc></url>
+  <url><loc>https://iptoolsweb.io/en/articles/open-ports.html</loc></url>
 
-  <!-- Página de error personalizada -->
-  <url>
-    <loc>https://iptoolsweb.io/404.html</loc>
-  </url>
+  <!-- Noticias -->
+  <url><loc>https://iptoolsweb.io/noticias.html</loc></url>
+  <url><loc>https://iptoolsweb.io/en/news.html</loc></url>
 
+  <!-- Legales -->
+  <url><loc>https://iptoolsweb.io/politica-privacidad.html</loc></url>
+  <url><loc>https://iptoolsweb.io/politica-cookies.html</loc></url>
+  <url><loc>https://iptoolsweb.io/terminos-condiciones.html</loc></url>
+
+  <!-- 404 personalizada (opcional, algunos SEO la indexan, otros no) -->
+  <!-- <url><loc>https://iptoolsweb.io/404.html</loc></url> -->
 </urlset>

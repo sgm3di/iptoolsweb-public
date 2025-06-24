@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>🔎 Blacklist Checker - IPToolsWeb.io</title>
+  <meta name="description" content="Check if your IP or domain is listed on blacklists (Spamhaus, SORBS, UCEPROTECT, Barracuda, and more). Free, fast, online tool." />
+  <link rel="canonical" href="https://iptoolsweb.io/en/blacklist.html" />
+  <link rel="icon" type="image/png" href="../img/favicon.png" />
+  <link rel="stylesheet" href="../style.css" />
+  <meta property="og:title" content="Blacklist Checker - IPToolsWeb.io" />
+  <meta property="og:description" content="Check if your IP or domain is blacklisted (Spamhaus, SORBS, UCEPROTECT, Barracuda...)." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://iptoolsweb.io/en/blacklist.html" />
+  <meta property="og:image" content="https://iptoolsweb.io/img/og-iptoolsweb.png" />
+  <link rel="alternate" hreflang="es" href="https://iptoolsweb.io/blacklist.html" />
+  <link rel="alternate" hreflang="en" href="https://iptoolsweb.io/en/blacklist.html" />
+  <style>
+    .bl-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.2rem 0 1.5rem 0;
+      font-size: 1.08rem;
+      background: transparent;
+    }
+    .bl-table th, .bl-table td {
+      border: 1px solid #00FF00;
+      padding: 0.45em 0.5em;
+      background: rgba(0,255,0,0.06);
+      color: #00FF00;
+      border-radius: 0;
+      font-family: inherit;
+      text-align: left;
+    }
+    .bl-table th {
+      background: rgba(0,255,0,0.13);
+      font-weight: bold;
+    }
+    .bl-ok { color: #00FF00; font-weight: bold; }
+    .bl-listed { color: #FF3939; font-weight: bold; }
+    .bl-link { color: #00FF00; text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <h1>🔎 Blacklist Checker</h1>
+
+  <p>Enter an IP or domain to check if it is listed on major blacklists (<b>Spamhaus</b>, <b>Barracuda</b>, <b>SORBS</b>, <b>UCEPROTECT</b>, and more).</p>
+
+  <form id="blForm" autocomplete="off" style="margin-bottom:1.6rem;">
+    <input id="blInput" type="text" placeholder="E.g. 8.8.8.8 or mydomain.com" required>
+    <button type="submit" class="iptools-btn">Check</button>
+  </form>
+
+  <pre id="loading" class="output" style="display:none;">Checking<span id="dots">.</span></pre>
+  <div id="blResults" class="output" style="display:none;"></div>
+
+  <div style="margin-top:2rem;">
+    <a href="/en/index.html" class="volver">&larr; Back</a>
+  </div>
+
+  <div class="footer-legal">
+    <a href="/politica-cookies.html" target="_blank">Cookies Policy</a>
+    <a href="/politica-privacidad.html" target="_blank">Privacy</a>
+    <a href="/terminos-condiciones.html" target="_blank">Terms</a>
+    <br>
+    © <span id="year"></span> IPToolsWeb.io — IP &amp; Network Tools
+  </div>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+const blForm = document.getElementById('blForm');
+const blInput = document.getElementById('blInput');
+const blResults = document.getElementById('blResults');
+const loading = document.getElementById('loading');
+const dots = document.getElementById('dots');
+let timer;
+
+blForm.addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const val = blInput.value.trim();
+  if (!val) return;
+  blResults.style.display = 'none';
+  blResults.innerHTML = '';
+  loading.style.display = 'block';
+  let cycle = 0;
+  timer = setInterval(()=>{ dots.textContent = '.'.repeat((cycle++%3)+1); },400);
+
+  try {
+    const resp = await fetch(`https://api.iptoolsweb.io/api/blacklist?ip=${encodeURIComponent(val)}`);
+    const data = await resp.json();
+    clearInterval(timer);
+    loading.style.display = 'none';
+
+    if (data.error) {
+      blResults.innerHTML = '❌ Error: ' + data.error;
+      blResults.style.display = 'block';
+      return;
+    }
+    if (!data.lists) {
+      blResults.innerHTML = 'No response from blacklists.';
+      blResults.style.display = 'block';
+      return;
+    }
+
+    let found = data.lists.filter(x=>x.listed).length;
+    let msg = found === 0
+      ? '<b>🟢 Not listed on any blacklist!</b>'
+      : `<b>🔴 Warning: Listed on ${found} blacklist(s)</b>`;
+
+    let table = `<table class="bl-table"><thead><tr><th>Blacklist</th><th>Status</th><th>Details</th></tr></thead><tbody>`;
+    data.lists.forEach(rbl=>{
+      table += `<tr>
+        <td>${rbl.name}</td>
+        <td class="${rbl.listed ? 'bl-listed' : 'bl-ok'}">${rbl.listed ? '🔴 Listed' : '🟢 OK'}</td>
+        <td>${rbl.link ? `<a class="bl-link" href="${rbl.link}" target="_blank">Info</a>` : '-'}</td>
+      </tr>`;
+    });
+    table += '</tbody></table>';
+
+    blResults.innerHTML = msg + '<br><br>' + table;
+    blResults.style.display = 'block';
+  } catch(err) {
+    clearInterval(timer);
+    loading.style.display = 'none';
+    blResults.innerHTML = '❌ Connection error.';
+    blResults.style.display = 'block';
+  }
+});
+</script>
+</body>
+</html>
