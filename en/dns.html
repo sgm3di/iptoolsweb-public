@@ -7,8 +7,8 @@
   <meta name="description" content="Check DNS records (A, MX, CNAME, TXT…) across multiple public resolvers like Google, Cloudflare, Quad9 and more.">
   <link rel="canonical" href="https://iptoolsweb.io/en/dns.html">
   <link rel="alternate" hreflang="es" href="https://iptoolsweb.io/dns.html">
-  <link rel="icon" type="image/png" href="/img/favicon.png">
-  <link rel="stylesheet" href="/style.css">
+  <link rel="icon" type="image/png" href="../img/favicon.png">
+  <link rel="stylesheet" href="../style.css">
 </head>
 <body>
   <h1>🌐 DNS CHECKER</h1>
@@ -21,13 +21,15 @@
       <option>A</option><option>AAAA</option><option>CNAME</option>
       <option>MX</option><option>NS</option><option>TXT</option><option>SOA</option>
     </select>
-    <button type="submit">Check</button>
+    <button type="submit" class="iptools-btn">Check</button>
   </form>
 
-  <span id="loading" style="display:none;font-weight:bold;">Loading<span id="dots">.</span></span>
-  <pre id="results" style="white-space:pre-wrap;margin-top:1rem;"></pre>
+  <pre id="loading" class="output" style="display:none;">Loading<span id="dots">.</span></pre>
+  <pre id="results" class="output" style="white-space:pre-wrap;margin-top:1rem; display:none;"></pre>
 
-  <p><a href="/en/index.html">Back to home</a></p>
+  <div style="margin-top:2rem;">
+    <a href="/en/index.html" class="volver">← Back</a>
+  </div>
 
 <script>
 const form   = document.getElementById('dnsForm');
@@ -44,8 +46,10 @@ form.addEventListener('submit', async e => {
   const rec  = type.value;
   if (!dom) return;
 
+  // Oculta resultado anterior y muestra el loading
+  output.style.display = 'none';
   output.textContent = '';
-  loadEl.style.display = 'inline-block';
+  loadEl.style.display = 'block';
   let cycle = 0;
   timer = setInterval(()=>{ dots.textContent = '.'.repeat((cycle++%3)+1); },400);
 
@@ -62,8 +66,10 @@ form.addEventListener('submit', async e => {
       txt += '\n';
     });
     output.textContent = txt;
+    output.style.display = 'block'; // Muestra resultados solo cuando haya datos
   } catch(err){
     output.textContent = 'Error connecting to API';
+    output.style.display = 'block';
   } finally{
     clearInterval(timer);
     loadEl.style.display = 'none';

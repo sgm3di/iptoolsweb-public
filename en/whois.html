@@ -6,7 +6,7 @@
   <title>Consulta WHOIS - IPToolsWeb.io</title>
   <meta name="description" content="Obtén la información WHOIS de cualquier dominio. Propietario, fechas, servidores y más." />
   <link rel="icon" type="image/png" href="../img/favicon.png" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="../../style.css" />
   <link rel="canonical" href="https://iptoolsweb.io/whois.html" />
   <meta property="og:title" content="Consulta WHOIS - IPToolsWeb.io" />
   <meta property="og:description" content="Obtén la información WHOIS de cualquier dominio. Propietario, fechas, servidores y más." />
@@ -21,7 +21,7 @@
 
   <label>Domain:</label><br>
   <input type="text" id="domain" placeholder="e.g. google.com" />
-  <button onclick="lookupWhois()">Lookup</button>
+  <button onclick="lookupWhois()" class="iptools-btn">Lookup</button>
 
   <div style="margin-top:2rem;">
     <pre id="resultado">Waiting for query...</pre>
@@ -29,7 +29,7 @@
 
   <div style="margin-top:2rem;">
     <a href="index.html" style="color:#00FF00; text-decoration:none; font-size:1.5rem;
-    border:1px dashed #00FF00; padding:0.3rem 0.6rem; font-family:monospace;">← Back</a>
+    border:1px dashed #00FF00; padding:0.3rem 0.6rem; font-family:monospace;" class="volver">← Back</a>
   </div>
 
   <script>

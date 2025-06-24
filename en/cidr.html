@@ -4,12 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Conversor CIDR - IPToolsWeb.io</title>
-  <meta name="description" content="Convierte entre notación CIDR y máscara de red de forma sencilla." />
+  <meta name="description" content="Easily convert between CIDR and netmask notation." />
   <link rel="icon" type="image/png" href="../img/favicon.png" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="../../style.css" />
   <link rel="canonical" href="https://iptoolsweb.io/cidr.html" />
   <meta property="og:title" content="Conversor CIDR - IPToolsWeb.io" />
-  <meta property="og:description" content="Convierte entre notación CIDR y máscara de red de forma sencilla." />
+  <meta property="og:description" content="Easily convert between CIDR and netmask notation." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://iptoolsweb.io/cidr.html" />
   <meta property="og:image" content="https://iptoolsweb.io/img/cidr-cover.png" />
@@ -22,19 +22,19 @@
   <div>
     <label>CIDR (e.g., 24):</label><br>
     <input type="number" id="cidr" placeholder="24" min="0" max="32"/>
-    <button onclick="cidrToMask()">Convert to Mask</button>
+    <button onclick="cidrToMask()" class="iptools-btn">Convert to Mask</button>
     <div class="result" id="maskResult"></div>
   </div>
 
   <div style="margin-top:2rem;">
     <label>Mask (e.g., 255.255.255.0):</label><br>
     <input type="text" id="mask" placeholder="255.255.255.0" />
-    <button onclick="maskToCidr()">Convert to CIDR</button>
+    <button onclick="maskToCidr()" class="iptools-btn">Convert to CIDR</button>
     <div class="result" id="cidrResult"></div>
   </div>
 
   <div style="margin-top:2rem;">
-    <a href="index.html" style="color:#00FF00; text-decoration:none; font-size:1.5rem; border:1px dashed #00FF00; padding:0.3rem 0.6rem; font-family:monospace;">← Back</a>
+    <a href="index.html" style="color:#00FF00; text-decoration:none; font-size:1.5rem; border:1px dashed #00FF00; padding:0.3rem 0.6rem; font-family:monospace;" class="volver">← Back</a>
   </div>
 
   <script>

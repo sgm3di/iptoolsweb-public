@@ -4,14 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Escáner de Puertos - IPToolsWeb.io</title>
-  <meta name="description" content="Analiza puertos abiertos en cualquier host con nuestro escáner rápido y gratuito." />
+  <meta name="description" content="Scan for open ports on any host with our fast, free scanner." />
   <link rel="icon" type="image/png" href="../img/favicon.png" />
-  <link rel="stylesheet" href="style.css" />
-  <link rel="canonical" href="https://iptoolsweb.io/puertos.html" />
-  <meta property="og:title" content="Escáner de Puertos - IPToolsWeb.io" />
-  <meta property="og:description" content="Analiza puertos abiertos en cualquier host con nuestro escáner rápido y gratuito." />
+  <link rel="stylesheet" href="../../style.css" />
+  <link rel="canonical" href="https://iptoolsweb.io/en/puertos.html" />
+  <meta property="og:title" content="Port scaning - IPToolsWeb.io" />
+  <meta property="og:description" content="Scan for open ports on any host with our fast, free scanner." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://iptoolsweb.io/puertos.html" />
+  <meta property="og:url" content="https://iptoolsweb.io/en/puertos.html" />
   <meta property="og:image" content="https://iptoolsweb.io/img/puertos-cover.png" />
   <link rel="alternate" hreflang="es" href="https://iptoolsweb.io/puertos.html" />
   <link rel="alternate" hreflang="en" href="https://iptoolsweb.io/en/puertos.html" />
@@ -25,7 +25,7 @@
   <p>Enter ports (optional, comma separated):</p>
   <input type="text" id="ports" placeholder="e.g. 22,80,443 (max 20)" />
 
-  <button onclick="scan()">Scan</button>
+  <button onclick="scan()" class="iptools-btn">Scan</button>
 
   <div style="margin-top:2rem;">
     <pre id="resultado">Waiting for results...</pre>
@@ -33,7 +33,7 @@
 
   <div style="margin-top:2rem;">
     <a href="index.html" style="color:#00FF00; text-decoration:none; font-size:1.5rem;
-    border:1px dashed #00FF00; padding:0.3rem 0.6rem; font-family:monospace;">← Back</a>
+    border:1px dashed #00FF00; padding:0.3rem 0.6rem; font-family:monospace;" class="volver">← Back</a>
   </div>
 
   <script>

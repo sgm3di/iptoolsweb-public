@@ -22,19 +22,19 @@
   <div>
     <label>CIDR (ej: 24):</label><br>
     <input type="number" id="cidr" placeholder="24" min="0" max="32"/>
-    <button onclick="cidrAMascara()">Convertir a Máscara</button>
+    <button onclick="cidrAMascara()" class="iptools-btn">Convertir a Máscara</button>
     <div class="result" id="resultadoMascara"></div>
   </div>
 
   <div style="margin-top:2rem;">
     <label>Máscara (ej: 255.255.255.0):</label><br>
     <input type="text" id="mascara" placeholder="255.255.255.0" />
-    <button onclick="mascaraACidr()">Convertir a CIDR</button>
+    <button onclick="mascaraACidr()" class="iptools-btn">Convertir a CIDR</button>
     <div class="result" id="resultadoCidr"></div>
   </div>
 
   <div style="margin-top:2rem;">
-    <a href="index.html" style="color:#00FF00; text-decoration:none; font-size:1.5rem; border:1px dashed #00FF00; padding:0.3rem 0.6rem; font-family:monospace;">← Volver</a>
+    <a href="index.html" style="color:#00FF00; text-decoration:none; font-size:1.5rem; border:1px dashed #00FF00; padding:0.3rem 0.6rem; font-family:monospace;" class="volver">← Volver</a>
   </div>
 
   <script>

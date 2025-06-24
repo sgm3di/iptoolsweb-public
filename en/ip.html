@@ -3,38 +3,285 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ip - IPToolsWeb.io</title>
-  <meta name="description" content="Descubre herramientas y recursos técnicos en IPToolsWeb.io." />
-  <link rel="icon" type="image/png" href="../../img/favicon.png" />
-  <link rel="stylesheet" href="../../style.css" />
+  <title>What is My IP? - IPToolsWeb.io</title>
+  <meta name="description" content="Check your public IP address, geolocation, country, city, and ISP in real time. Geolocate any IP for free." />
+  <link rel="icon" type="image/png" href="/img/favicon.png" />
+  <link rel="stylesheet" href="/style.css" />
   <link rel="canonical" href="https://iptoolsweb.io/en/ip.html" />
-  <meta property="og:title" content="Ip - IPToolsWeb.io" />
-  <meta property="og:description" content="Descubre herramientas y recursos técnicos en IPToolsWeb.io." />
-  <meta property="og:type" content="article" />
+  <meta property="og:title" content="What is My IP? - IPToolsWeb.io" />
+  <meta property="og:description" content="Check your public IP address and location worldwide, geolocate any IP online." />
+  <meta property="og:type" content="website" />
   <meta property="og:url" content="https://iptoolsweb.io/en/ip.html" />
-  <meta property="og:image" content="https://iptoolsweb.io/img/default-cover.png" />
-  <link rel="alternate" hreflang="es" href="https://iptoolsweb.io/en/en/ip.html" />
+  <meta property="og:image" content="https://iptoolsweb.io/img/og-iptoolsweb.png" />
+  <link rel="alternate" hreflang="es" href="https://iptoolsweb.io/ip.html" />
   <link rel="alternate" hreflang="en" href="https://iptoolsweb.io/en/ip.html" />
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <style>
+    body {
+      background: #000;
+      color: #00FF00;
+      font-family: 'Fira Mono', 'IBM Plex Mono', Courier, monospace;
+    }
+    .terminal-title {
+      text-align: center;
+      font-size: 2.2rem;
+      font-family: inherit;
+      font-weight: bold;
+      color: #00FF00;
+      margin: 36px 0 28px 0;
+      letter-spacing: 0.02em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65em;
+    }
+    .terminal-icon {
+      display: inline-block;
+      background: #00FF00;
+      color: #000;
+      font-weight: bold;
+      font-size: 1.18em;
+      border-radius: 3px;
+      padding: 0.10em 0.27em 0.09em 0.27em;
+      font-family: inherit;
+      vertical-align: middle;
+      margin-right: 0.13em;
+    }
+    .panel {
+      border: 2px solid #00FF00;
+      margin: 0 auto 1.6rem auto;
+      padding: 1.3rem 1.4rem 1.2rem 1.4rem;
+      background: transparent;
+      max-width: 900px;
+      min-width: 340px;
+      width: 90vw;
+      box-sizing: border-box;
+      border-radius: 0;
+      text-align: center;
+    }
+    .panel table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.5rem;
+      margin-bottom: 0;
+      background: transparent;
+    }
+    .panel th, .panel td {
+      border: 1px solid #00FF00;
+      padding: 0.49em 0.8em;
+      font-size: 1.12em;
+      border-radius: 0;
+      font-family: inherit;
+    }
+    .panel th {
+      background: rgba(0,255,0,0.08);
+      color: #00FF00;
+      text-align: left;
+      font-weight: bold;
+      width: 27%;
+    }
+    .panel td {
+      background: rgba(0,255,0,0.04);
+      color: #00FF00;
+      text-align: left;
+      font-weight: normal;
+    }
+    #map, #customMap {
+      width: 100%;
+      height: 240px;
+      margin: 0.7rem 0 1.3rem 0;
+      border: 2px solid #00FF00;
+      border-radius: 0;
+      background: #111;
+      box-sizing: border-box;
+      display: block;
+    }
+    @media(max-width:1000px){
+      .panel{width:99vw;}
+      #map, #customMap{height:150px;}
+      .terminal-title{font-size:1.3rem;}
+    }
+    @media(max-width:700px){
+      .panel{width:99vw;padding:0.7rem 2vw;}
+      #map, #customMap{height:105px;}
+      .terminal-title{font-size:1.0rem;}
+    }
+    .geo-title { 
+      font-size:1.32em; 
+      margin:0.7rem 0 1.1rem 0; 
+      color:#00FF00; 
+      font-weight:bold; 
+      text-align:center;
+      letter-spacing:0.04em;
+    }
+    .geo-form {
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      gap: 0.8em;
+      margin-bottom: 1.3rem;
+    }
+    .geo-form input[type="text"] {
+      background: #000;
+      color: #00FF00;
+      border: 1.7px solid #00FF00;
+      font-family: inherit;
+      font-size: 1.09em;
+      padding: 0.33em 0.8em;
+      border-radius: 0;
+      outline: none;
+      min-width: 180px;
+      max-width: 280px;
+      box-shadow: 0 0 6px #00FF0044 inset;
+      transition: border .18s;
+    }
+    .geo-form input[type="text"]:focus {
+      border-color: #62ff62;
+      background: #031;
+    }
+    .geo-form button {
+      background: #00FF00;
+      color: #000;
+      border: 1.7px solid #00FF00;
+      font-family: inherit;
+      font-size: 1.09em;
+      padding: 0.32em 1.05em;
+      cursor: pointer;
+      border-radius: 0;
+      font-weight: bold;
+      box-shadow: 0 0 6px #00FF0044;
+      transition: background .15s, color .15s;
+    }
+    .geo-form button:hover { background: #000; color: #00FF00;}
+    .footer-legal {
+      margin: 2.1rem 0 0 0;
+      color: #00FF00;
+      text-align: center;
+      font-size: 1rem;
+      opacity: 0.88;
+    }
+    .footer-legal a { color: #00FF00; margin:0 14px; text-decoration: underline;}
+    .volver {
+      color:#00FF00; text-decoration:none; font-size:1.5rem;
+      border:1px dashed #00FF00; padding:0.38rem 0.92rem; font-family:monospace;
+      margin: 2.2rem auto 1.5rem auto; display:inline-block;
+      background:transparent;
+    }
+    .volver:hover { background:#00FF0044;}
+  </style>
 </head>
 <body>
-  <h1>💻 What is my public IP address?</h1>
-  <p>Your IP address is:</p>
-  <div class="ip-box" id="ip">Loading...</div>
+  <div class="terminal-title">
+    <span class="terminal-icon">&gt;_</span> YOUR PUBLIC IP
+  </div>
+
+  <div class="panel">
+    <div id="map"></div>
+    <table>
+      <tr><th>IP</th><td id="ip">-</td></tr>
+      <tr><th>Country</th><td id="country">-</td></tr>
+      <tr><th>City</th><td id="city">-</td></tr>
+      <tr><th>Latitude</th><td id="lat">-</td></tr>
+      <tr><th>Longitude</th><td id="lon">-</td></tr>
+      <tr><th>ISP</th><td id="isp">-</td></tr>
+    </table>
+  </div>
+
+  <div class="panel">
+    <div class="geo-title">Geolocate another IP</div>
+    <form id="customIpForm" class="geo-form" autocomplete="off">
+      <input type="text" id="customIpInput" placeholder="8.8.8.8" required>
+      <button type="submit" class="iptools-btn">Geolocate IP</button>
+    </form>
+    <div id="custom-results" style="display:none;">
+      <div id="customMap"></div>
+      <table>
+        <tr><th>IP</th><td id="c_ip">-</td></tr>
+        <tr><th>Country</th><td id="c_country">-</td></tr>
+        <tr><th>City</th><td id="c_city">-</td></tr>
+        <tr><th>Latitude</th><td id="c_lat">-</td></tr>
+        <tr><th>Longitude</th><td id="c_lon">-</td></tr>
+        <tr><th>ISP</th><td id="c_isp">-</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div style="text-align:center;">
+    <a href="../en/index.html" class="volver">&larr; Back</a>
+  </div>
+
+  <div class="footer-legal">
+    <a href="/politica-cookies.html" target="_blank">Cookies Policy</a>
+    <a href="/politica-privacidad.html" target="_blank">Privacy</a>
+    <a href="/terminos-condiciones.html" target="_blank">Terms</a>
+    <br>
+    © <span id="year"></span> IPToolsWeb.io — IP &amp; Network Tools
+  </div>
 
   <script>
-    fetch('https://api.ipify.org?format=json')
-      .then(response => response.json())
-      .then(data => {
-        document.getElementById('ip').textContent = data.ip;
-      })
-      .catch(error => {
-        document.getElementById('ip').textContent = "Error retrieving IP";
-        console.error("Error:", error);
-      });
-  </script>
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-  <div style="margin-top:2rem;">
-    <a href="index.html" style="color:#00FF00; text-decoration:none; font-size:1.5rem; border:1px dashed #00FF00; padding:0.3rem 0.6rem; font-family:monospace;">← Back</a>
-  </div>
+    function fetchGeo(ip = "") {
+      return fetch(`https://api.iptoolsweb.io/api/geoip?ip=${encodeURIComponent(ip)}`)
+        .then(r => r.json())
+        .then(d => {
+          if (d.error) throw new Error(d.error);
+          return d;
+        });
+    }
+    function fillInfo(prefix, info) {
+      document.getElementById(prefix + "ip").textContent = info.query || "-";
+      document.getElementById(prefix + "country").textContent = info.country || "-";
+      document.getElementById(prefix + "city").textContent = info.city || "-";
+      document.getElementById(prefix + "lat").textContent = (info.lat !== undefined && info.lat !== null && info.lat !== "") ? Number(info.lat).toFixed(4) : "-";
+      document.getElementById(prefix + "lon").textContent = (info.lon !== undefined && info.lon !== null && info.lon !== "") ? Number(info.lon).toFixed(4) : "-";
+      document.getElementById(prefix + "isp").textContent = info.isp || "-";
+    }
+
+    // User IP map
+    let userMap = L.map('map').setView([0, 0], 2);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 18, attribution: '© OpenStreetMap'}).addTo(userMap);
+
+    fetch('https://api.ipify.org?format=json')
+      .then(r => r.json())
+      .then(({ip}) => {
+          if (!ip) throw new Error("Could not obtain your public IP");
+          return fetchGeo(ip);
+      })
+      .then(info => {
+        fillInfo('', info);
+        L.marker([info.lat, info.lon]).addTo(userMap)
+          .bindPopup(`Your IP: ${info.query}`).openPopup();
+        userMap.setView([info.lat, info.lon], 10);
+      })
+      .catch(err => {
+        fillInfo('', {query: "-", country: "-", city: "-", lat: "-", lon: "-", isp: "-"});
+        alert('Could not geolocate your IP\n' + err.message);
+        console.error('Error:', err);
+      });
+
+    // Custom IP map
+    let customMap = L.map('customMap').setView([0, 0], 2);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 18, attribution: '© OpenStreetMap'}).addTo(customMap);
+    let customMarker = null;
+
+    document.getElementById('customIpForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const ip = document.getElementById('customIpInput').value.trim();
+      if (!ip) return;
+      fetchGeo(ip)
+        .then(info => {
+          document.getElementById('custom-results').style.display = 'block';
+          fillInfo('c_', info);
+          if (customMarker) customMap.removeLayer(customMarker);
+          customMarker = L.marker([info.lat, info.lon]).addTo(customMap)
+            .bindPopup(`IP: ${info.query}`).openPopup();
+          customMap.setView([info.lat, info.lon], 10);
+        })
+        .catch(err => alert('Could not geolocate this IP\n' + err.message));
+    });
+  </script>
 </body>
 </html>

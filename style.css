@@ -16,14 +16,88 @@ a {
   color: #00FF00;
   text-decoration: underline;
 }
-input, button, select {
-  background-color: #111;
-  border: 1px solid #00FF00;
+
+/* === INPUTS Y BOTONES UNIVERSALES === */
+input, button, select, input[type="submit"] {
+  background-color: #000;
+  border: 1.7px solid #00FF00;
   color: #00FF00;
   font-family: monospace;
   padding: 0.5rem;
   margin-top: 1rem;
+  border-radius: 0;
+  box-shadow: 0 0 6px #00FF0044 inset;
+  transition: background .15s, color .15s, border .15s;
+  font-size: 1.09em;
 }
+
+/* === BOTONES PRINCIPALES VERDES (como en IPTools) === */
+button, input[type="submit"], .iptools-btn {
+  background: #00FF00;
+  color: #000;
+  border: 1.7px solid #00FF00;
+  font-family: 'Fira Mono', 'IBM Plex Mono', Courier, monospace;
+  font-size: 1.09em;
+  padding: 0.32em 1.05em;
+  cursor: pointer;
+  border-radius: 0;
+  font-weight: bold;
+  box-shadow: 0 0 6px #00FF0044;
+  margin-top: 1rem;
+  transition: background .15s, color .15s;
+}
+button:hover, input[type="submit"]:hover, .iptools-btn:hover {
+  background: #000;
+  color: #00FF00;
+}
+
+/* === BOTÓN DE VOLVER ESPECIAL RETRO === */
+.volver {
+  color: #00FF00;
+  text-decoration: none;
+  font-size: 1.5rem;
+  border: 1px dashed #00FF00;
+  padding: 0.38rem 0.92rem;
+  font-family: monospace;
+  margin: 2.2rem auto 1.5rem auto;
+  display: inline-block;
+  background: transparent;
+  border-radius: 0;
+  transition: background .15s;
+}
+.volver:hover {
+  background: #00FF0044;
+  color: #00FF00;
+}
+
+/* === TABLAS ESTILO RETRO === */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  background: transparent;
+}
+th, td {
+  border: 1px solid #00FF00;
+  padding: 0.49em 0.8em;
+  font-size: 1.12em;
+  border-radius: 0;
+  font-family: inherit;
+}
+th {
+  background: rgba(0,255,0,0.10);
+  color: #00FF00;
+  text-align: left;
+  font-weight: bold;
+}
+td {
+  background: rgba(0,255,0,0.05);
+  color: #00FF00;
+  text-align: left;
+  font-weight: normal;
+}
+
+/* === CUADROS DE RESULTADO/OUTPUT/CAJAS IP === */
 pre, .output, .ip-box {
   background-color: #111;
   border: 1px dashed #00FF00;
@@ -34,9 +108,20 @@ pre, .output, .ip-box {
   display: inline-block;
   font-size: 1.2rem;
 }
+
 @media (max-width: 600px) {
   body { padding: 1rem; font-size: 90%; }
   h1 { font-size: 1.4rem; }
   .ip-box, .output, pre { width: 100%; font-size: 1rem; }
   input, button { width: 100%; box-sizing: border-box; }
+}
+.flag, img.flag {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 0.3em;
+  width: 32px;
+  height: 32px;
+  vertical-align: middle;
 }
