@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IPToolsWeb.io — Herramientas IP y Red Gratis (Retro Terminal)</title>
+  <meta name="description" content="Herramientas IP y de red para técnicos IT: ¿Cuál es mi IP?, CIDR, WHOIS, escáner de puertos, DNS checker, blacklist y más. Estilo MS-DOS retro.">
+  <link rel="canonical" href="https://iptoolsweb.io/" />
+  <link rel="icon" type="image/png" href="img/favicon.png" />
+  <link rel="stylesheet" href="style.css" />
+  <meta property="og:title" content="IPToolsWeb.io — Herramientas IP y Red Gratis (Retro Terminal)" />
+  <meta property="og:description" content="Herramientas IP y de red para técnicos IT, estilo retro: ¿Cuál es mi IP?, CIDR, WHOIS, escáner de puertos, DNS, blacklist y más." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://iptoolsweb.io/" />
+  <meta property="og:image" content="https://iptoolsweb.io/img/og-iptoolsweb.png" />
+  <link rel="alternate" hreflang="es" href="https://iptoolsweb.io/" />
+  <link rel="alternate" hreflang="en" href="https://iptoolsweb.io/en/index.html" />
+  <style>
+    body {
+      background: #000;
+      color: #00FF00;
+      font-family: 'Fira Mono', 'IBM Plex Mono', 'Courier New', monospace;
+      margin: 0; padding: 0;
+    }
+    .terminal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.3rem 1.8rem 0.4rem 1.8rem;
+    }
+    .logo-terminal {
+      font-size: 2.25rem;
+      font-weight: bold;
+      letter-spacing: 1.5px;
+      color: #00FF00;
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      text-shadow: 0 0 7px #00FF0088;
+    }
+    .prompt-blink {
+      display: inline-block;
+      width: 13px;
+      height: 2.1rem;
+      background: #00FF00;
+      margin-left: 7px;
+      animation: blink 0.85s steps(1) infinite alternate;
+      border-radius: 1.5px;
+      vertical-align: middle;
+      box-shadow: 0 0 6px #00FF00AA;
+    }
+    @keyframes blink {
+      0% { opacity: 1;}
+      100% { opacity: 0.1;}
+    }
+    .side-menu {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+    .flags {
+      display: flex;
+      gap: 0.7rem;
+      align-items: center;
+    }
+    .flags img {
+      width: 32px;
+      height: 32px;
+      border-radius: 7px;
+      background: #000;
+      object-fit: cover;
+      margin: 0;
+      padding: 0;
+      display: block;
+      box-shadow: none;
+      border: none;
+      transition: box-shadow .18s, transform .10s;
+    }
+    .flags img:hover { transform: scale(1.12); box-shadow: 0 0 8px #00FF0066; }
+    .menu-dropdown {
+      background: #000;
+      color: #00FF00;
+      border: 1.2px solid #00FF00;
+      font-family: monospace;
+      font-size: 1.12rem;
+      padding: 0.3em 0.8em;
+      border-radius: 0;
+      cursor: pointer;
+      margin-left: 0.7rem;
+      transition: background 0.18s;
+    }
+    .menu-dropdown:hover { background: #111; }
+
+    .tools-table-container {
+      margin: 2.7rem auto 0 auto;
+      max-width: 800px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+    table.tools-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: transparent;
+      margin-bottom: 0;
+      max-width: 660px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .tools-table th, .tools-table td {
+      border: 1px solid #00FF00;
+      padding: 0.75em 0.9em;
+      color: #00FF00;
+      background: transparent;
+      border-radius: 0;
+      font-size: 1.09rem;
+      font-family: inherit;
+      text-align: left;
+      transition: background 0.14s, color 0.15s;
+    }
+    .tools-table th {
+      background: rgba(0,255,0,0.13);
+      font-weight: bold;
+      font-size: 1.12rem;
+      letter-spacing: 1px;
+      border-bottom: 2px solid #00FF00;
+    }
+    .tools-table td.tool-link {
+      font-weight: bold;
+      font-size: 1.08rem;
+      width: 33%;
+      white-space: nowrap;
+      transition: background 0.15s, color 0.15s;
+    }
+    .tools-table a {
+      color: #00FF00;
+      text-decoration: underline;
+      font-weight: bold;
+      transition: color 0.12s;
+      font-size: 1.08rem;
+    }
+    .tools-table a:hover { color: #000; }
+    .tools-table .icon {
+      font-size: 1.15em;
+      margin-right: 0.32em;
+      vertical-align: -0.15em;
+      transition: color 0.18s;
+    }
+    .tools-table tr:hover td.tool-link {
+      background: #00FF00 !important;
+      color: #000 !important;
+      font-weight: bold;
+    }
+    .tools-table tr:hover td.tool-link a,
+    .tools-table tr:hover td.tool-link .icon {
+      color: #000 !important;
+      text-shadow: none;
+    }
+    .tools-table tr:hover td.tool-desc {
+      background: #111 !important;
+      color: #00FF00CC !important;
+    }
+    .tools-table td.tool-desc {
+      font-size: 1.01rem;
+      color: #00FF00CC;
+      font-weight: normal;
+      background: transparent;
+      transition: background 0.14s, color 0.13s;
+    }
+    @media (max-width: 900px) {
+      .tools-table-container { max-width: 99vw;}
+      table.tools-table { font-size: 0.93rem; max-width: 99vw;}
+      .tools-table th, .tools-table td { font-size: 0.91rem; padding: 0.55em 0.33em;}
+    }
+    .esc-bar {
+      width: 100%;
+      margin: 2.6rem 0 0 0;
+      height: 1.5px;
+      background: #fff;
+      opacity: 0.82;
+      border-radius: 1px;
+      display: block;
+    }
+    .esc-message {
+      color: #00FF00;
+      font-family: monospace;
+      margin: 0.7rem auto 0 auto;
+      text-align: center;
+      font-size: 1.08rem;
+      display: block;
+      letter-spacing: 0.2px;
+      opacity: 0.97;
+      padding: 0;
+    }
+    .footer-legal {
+      margin: 2.4rem 0 0 0;
+      color: #00FF00;
+      text-align: center;
+      font-size: 1rem;
+      opacity: 0.92;
+      width: 100%;
+      padding-bottom: 1.2rem;
+    }
+    .footer-legal a { color: #00FF00; margin:0 12px 0 0; text-decoration: underline;}
+  </style>
+</head>
+<body>
+  <header class="terminal-header">
+    <div class="logo-terminal">
+      IPToolsWeb.io
+      <span class="prompt-blink"></span>
+    </div>
+    <nav class="side-menu">
+      <div class="flags">
+        <a href="index.html"><img src="img/es_flag.png" alt="Español"></a>
+        <a href="en/index.html"><img src="img/en_flag.png" alt="English"></a>
+      </div>
+      <select class="menu-dropdown" onchange="if(this.value)window.location.href=this.value">
+        <option selected disabled>≡ Menú</option>
+        <option value="noticias.html">📰 Noticias</option>
+        <option value="blog.html">🧠 Trucos & Artículos</option>
+        <option value="https://iptoolsweb.io/en/blog.html">🌐 English Blog</option>
+      </select>
+    </nav>
+  </header>
+
+  <main>
+    <div class="tools-table-container">
+      <table class="tools-table">
+        <tr>
+          <th>Herramienta</th>
+          <th>Descripción</th>
+        </tr>
+        <tr>
+          <td class="tool-link"><span class="icon">🌐</span><a href="ip.html">¿Cuál es mi IP?</a></td>
+          <td class="tool-desc">Muestra tu IP pública y geolocalización.</td>
+        </tr>
+        <tr>
+          <td class="tool-link"><span class="icon">📏</span><a href="cidr.html">Conversor CIDR</a></td>
+          <td class="tool-desc">Convierte entre CIDR y máscara de red.</td>
+        </tr>
+        <tr>
+          <td class="tool-link"><span class="icon">👤</span><a href="whois.html">Whois de dominio</a></td>
+          <td class="tool-desc">Consulta información de dominios/IP.</td>
+        </tr>
+        <tr>
+          <td class="tool-link"><span class="icon">🔎</span><a href="puertos.html">Escáner de puertos</a></td>
+          <td class="tool-desc">Verifica puertos abiertos.</td>
+        </tr>
+        <tr>
+          <td class="tool-link"><span class="icon">🔒</span><a href="password.html">Generador de contraseñas</a></td>
+          <td class="tool-desc">Crea passwords seguras.</td>
+        </tr>
+        <tr>
+          <td class="tool-link"><span class="icon">🛰️</span><a href="dns.html">DNS Checker</a></td>
+          <td class="tool-desc">Analiza registros DNS (A, MX, TXT...)</td>
+        </tr>
+        <tr>
+          <td class="tool-link"><span class="icon">📧</span><a href="email-header.html">Analizador de cabeceras</a></td>
+          <td class="tool-desc">Analiza cabeceras de email.</td>
+        </tr>
+        <tr>
+          <td class="tool-link"><span class="icon">📶</span><a href="ping.html">Ping desde Internet</a></td>
+          <td class="tool-desc">Comprueba accesibilidad externa.</td>
+        </tr>
+        <tr>
+          <td class="tool-link"><span class="icon">🔦</span><a href="blacklist.html">Comprobar Blacklist</a></td>
+          <td class="tool-desc">Verifica si tu IP/dominio está en listas negras.</td>
+        </tr>
+      </table>
+    </div>
+  </main>
+
+  <div class="esc-bar"></div>
+  <div class="esc-message">
+    🖱️  Presiona <b>ESC</b> para volver. CTRL+C para salir. (mentira, pero queda bien).
+  </div>
+
+  <div class="footer-legal">
+    <a href="politica-cookies.html" target="_blank">Cookies</a>
+    <a href="politica-privacidad.html" target="_blank">Privacidad</a>
+    <a href="terminos-condiciones.html" target="_blank">Términos</a>
+    <br>
+    © <span id="year"></span> IPToolsWeb.io — Herramientas IP &amp; red
+  </div>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
+

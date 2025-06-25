@@ -1,23 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>🚀 Port Scanning: What It Is, How It Works & Why It Matters | IPToolsWeb.io</title>
+  <title>🚀 Port Scanning: What It Is, How It Works & Why It’s Crucial for Your Security</title>
   <meta name="description" content="Comprehensive guide to port scanning: what it is, how it works, popular tools and how to protect your network.">
-  <link rel="canonical" href="https://iptoolsweb.io/en/articles/port-scanning.html">
-  <link rel="alternate" hreflang="es" href="https://iptoolsweb.io/articulos/escaneo-puertos.html">
-  <meta property="og:title" content="Port Scanning: What it is, how it works and why it matters">
-  <meta property="og:description" content="Learn all about port scanning and how to use IPToolsWeb.io's free online scanner to secure your infrastructure.">
-  <meta property="og:type" content="article">
-  <meta property="og:url" content="https://iptoolsweb.io/en/articles/port-scanning.html">
-  <meta name="twitter:card" content="summary">
-  <link rel="stylesheet" href="../../style.css">
-  <link rel="icon" type="image/png" href=".../../img/favicon.png">
+  <link rel="canonical" href="https://iptoolsweb.io/en/articles/port-scanning.html" />
+  <link rel="icon" type="image/png" href="/img/favicon.png" />
+  <link rel="stylesheet" href="/style.css" />
+  <meta property="og:title" content="🚀 Port Scanning: What It Is, How It Works & Why It’s Crucial for Your Security" />
+  <meta property="og:description" content="Comprehensive guide to port scanning: what it is, how it works, popular tools and how to protect your network." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://iptoolsweb.io/en/articles/port-scanning.html" />
+  <meta property="og:image" content="https://iptoolsweb.io/img/og-iptoolsweb.png" />
+  <link rel="alternate" hreflang="es" href="https://iptoolsweb.io/articles/port-scanning.html" />
+  <link rel="alternate" hreflang="en" href="https://iptoolsweb.io/en/articles/port-scanning.html" />
+  
+  <style>
+    article {
+      background: #000;
+      color: #00FF00;
+      font-family: 'Fira Mono', 'IBM Plex Mono', Courier, monospace;
+      border: 2px solid #00FF00;
+      padding: 2.5rem 1.7rem;
+      border-radius: 0;
+      max-width: 750px;
+      margin: 2.5rem auto 2rem auto;
+      box-shadow: 0 0 8px #00FF0040;
+    }
+    h1, h2, h3 {
+      color: #00FF00;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      font-family: inherit;
+      font-weight: bold;
+    }
+    h1 {
+      text-align: center;
+      font-size: 2.0rem;
+      margin-bottom: 2rem;
+      text-shadow: 0 0 3px #00FF00;
+    }
+    h2 { font-size: 1.25rem; }
+    h3 { font-size: 1.05rem; margin-top: 1.5rem;}
+    p, ul, ol {
+      color: #00FF00;
+      margin-bottom: 1.1rem;
+      line-height: 1.6;
+      font-size: 1.05rem;
+    }
+    ul, ol { margin-left: 1.3em;}
+    a { color: #00FF00; text-decoration: underline; }
+    code {
+      background: #111;
+      color: #00FF00;
+      border: 1px solid #00FF00;
+      padding: 0.13em 0.33em;
+      border-radius: 0;
+      font-size: 1em;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2.2rem 0 2.2rem 0;
+      font-size: 1rem;
+      background: transparent;
+    }
+    th, td {
+      border: 1px solid #00FF00;
+      padding: 0.65em 0.6em;
+      background: rgba(0,255,0,0.05);
+      color: #00FF00;
+      border-radius: 0;
+      font-family: inherit;
+      text-align: left;
+    }
+    th {
+      background: rgba(0,255,0,0.12);
+      font-weight: bold;
+    }
+    @media (max-width: 600px) {
+      article { padding: 1rem 0.4rem; font-size: 97%; }
+      h1 { font-size: 1.2rem; }
+      table { font-size: 0.92em;}
+    }
+    .footer-legal {
+      margin: 2.1rem 0 0 0;
+      color: #00FF00;
+      text-align: center;
+      font-size: 1rem;
+      opacity: 0.88;
+    }
+    .footer-legal a { color: #00FF00; margin:0 14px; text-decoration: underline;}
+    .volver {
+      color:#00FF00; text-decoration:none; font-size:1.3rem;
+      border:1px dashed #00FF00; padding:0.38rem 0.92rem; font-family:monospace;
+      margin: 2.2rem auto 1.5rem auto; display:inline-block;
+      background:transparent;
+      border-radius: 0;
+      transition: background .15s;
+    }
+    .volver:hover { background:#00FF0044;}
+  </style>
+
 </head>
 <body>
-  <article>
-    <h1>🚀 Port Scanning: What It Is, How It Works & Why It’s Crucial for Your Security</h1>
+    <article>
+<a href="../../en/blog.html" class="volver">&larr; Back</a>
+<h1>🚀 Port Scanning: What It Is, How It Works & Why It’s Crucial for Your Security</h1>
 
     <figure>
       <img src="../../img/a-puertos.png" alt="Modern datacenter with server racks and LED lights" style="max-width:100%; height:auto;">
@@ -107,6 +197,18 @@
 
     <h2>Conclusion</h2>
     <p>Port scanning is one of the most powerful practices in cybersecurity. Knowing your network’s exposure is key to preventing intrusions. With tools like <a href="https://iptoolsweb.io/en/puertos.html" target="_blank">IPToolsWeb.io</a>, scanning ports is easier than ever—even without deep technical skills. Use it regularly to keep your systems hardened.</p>
-  </article>
+</article>
+
+<div class="footer-legal">
+  <a href="/politica-cookies.html" target="_blank">Cookies Policy</a>
+  <a href="/politica-privacidad.html" target="_blank">Privacy</a>
+  <a href="/terminos-condiciones.html" target="_blank">Terms</a>
+  <br>
+  © <span id="year"></span> IPToolsWeb.io — IP &amp; Network Tools
+</div>
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
 </body>
 </html>
